@@ -13,6 +13,7 @@ import com.example.schedule.data.db.SortType
 import com.example.schedule.data.db.dao.LessonDao
 import com.example.schedule.data.db.entities.Lesson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -29,6 +30,7 @@ class LessonDbViewModel @Inject constructor(
 
     private val _sortType = MutableStateFlow(SortType.DATE_ASC)
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val _lessons = _sortType
         .flatMapLatest { sortType ->
             when(sortType){
@@ -47,29 +49,34 @@ class LessonDbViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), LessonState())
 
-    fun onEvent(event: LessonEvent){
-        when(event){
-            is LessonEvent.DeleteLesson -> {
-                viewModelScope.launch {
-                    repository.deleteLesson(event.lesson)
-                }
-            }
-            LessonEvent.SaveLesson -> {
-                val lesson = state.value.lesson
-
-                viewModelScope.launch {
-                    repository.insertLesson(lesson)
-                }
-            }
-            is LessonEvent.SortLessons -> {
-                _sortType.value = event.sortType
-            }
-
-            is LessonEvent.SetLesson -> {
-                _state.update { it.copy(
-                    lesson = event.lesson
-                ) }
-            }
+    fun updateLesson(lesson: Lesson){
+        viewModelScope.launch {
+            repository.updateLesson(lesson)
         }
     }
+//    fun onEvent(event: LessonEvent){
+//        when(event){
+//            is LessonEvent.DeleteLesson -> {
+//                viewModelScope.launch {
+//                    repository.deleteLesson(event.lesson)
+//                }
+//            }
+//            LessonEvent.SaveLesson -> {
+//                val lesson = state.value.lesson
+//
+//                viewModelScope.launch {
+//                    repository.insertLesson(lesson)
+//                }
+//            }
+//            is LessonEvent.SortLessons -> {
+//                _sortType.value = event.sortType
+//            }
+//
+//            is LessonEvent.SetLesson -> {
+//                _state.update { it.copy(
+//                    lesson = event.lesson
+//                ) }
+//            }
+//        }
+//    }
 }

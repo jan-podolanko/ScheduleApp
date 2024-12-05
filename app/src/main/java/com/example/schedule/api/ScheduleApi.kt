@@ -12,6 +12,9 @@ interface ScheduleApi {
     @GET("/index.php?typ=G&xml")
     suspend fun getGroups(): GroupsDto
 
+    @GET("/index.php?typ=N&xml")
+    suspend fun getTeachers(): GroupsDto
+
     @GET("/index.php?typ=G&okres=2&xml")
     suspend fun getSchedule(@Query("id") id: String): ScheduleDto
 }

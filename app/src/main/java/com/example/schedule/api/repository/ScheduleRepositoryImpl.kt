@@ -24,6 +24,10 @@ class ScheduleRepositoryImpl(
         return api.getGroups()
     }
 
+    override suspend fun getTeachers(): GroupsDto {
+        return api.getTeachers()
+    }
+
     override suspend fun getSchedule(id: String): ScheduleDto {
         return api.getSchedule(id)
     }
@@ -38,6 +42,10 @@ class ScheduleRepositoryImpl(
 
     override suspend fun insertLesson(lesson: Lesson) {
         return database.lessonDao.insertLesson(lesson)
+    }
+
+    override suspend fun updateLesson(lesson: Lesson) {
+        return database.lessonDao.updateLesson(lesson)
     }
 
     override suspend fun deleteLesson(lesson: Lesson) {

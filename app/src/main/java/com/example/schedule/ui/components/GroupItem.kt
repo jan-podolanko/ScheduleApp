@@ -45,5 +45,4 @@ fun GroupItem(
         }
         HorizontalDivider()
     }
-
 }

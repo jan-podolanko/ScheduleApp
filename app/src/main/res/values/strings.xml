@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Schedule</string>
+    <!--Bottom Nav Bar-->
+    <string name="schedule_tab">Plan</string>
+    <string name="favorites_tab">Ulubione</string>
+    <string name="groups_tab">Grupy</string>
+    <string name="group_screen_search_icon">Szukaj</string>
+    <string name="group_screen_search_placeholder">Wyszukaj grupę</string>
 </resources>

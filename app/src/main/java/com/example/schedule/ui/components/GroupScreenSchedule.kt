@@ -75,12 +75,12 @@ fun CategorizedLazyColumn(
             }
             items(category.items) { lesson ->
                 ScheduleItem(
-                    subject = "${lesson.subject}",
-                    teacher = "${lesson.teacher}",
-                    startTime = "${lesson.startTime}",
-                    endTime = "${lesson.endTime}",
-                    type = "${lesson.type}",
-                    place = "${lesson.place}",
+                    subject = lesson.subject,
+                    teacher = lesson.teacher,
+                    startTime = lesson.startTime,
+                    endTime = lesson.endTime,
+                    type = lesson.type,
+                    place = lesson.place,
                     modifier = Modifier.padding(13.dp,3.dp,0.dp,3.dp)
                 )
             }

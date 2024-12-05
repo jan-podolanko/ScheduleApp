@@ -5,18 +5,17 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id
+import java.time.LocalDate
+import java.util.Date
 
 @Entity(
     tableName = "lesson_table",
-    foreignKeys = arrayOf(
-        ForeignKey(
-            entity = Group::class,
-            parentColumns = ["id"],
-            childColumns = ["groupId"],
-            onDelete = CASCADE
-        )
-    )
+    foreignKeys = [ForeignKey(
+        entity = Group::class,
+        parentColumns = ["id"],
+        childColumns = ["groupId"],
+        onDelete = CASCADE
+    )]
 )
 data class Lesson(
     @PrimaryKey(autoGenerate = true)
@@ -30,8 +29,10 @@ data class Lesson(
     val endTime: String,
     val type: String,
     val place: String,
-    val date: String,
+    val date: LocalDate,
     val day: String,
     val group: String,
-    val groupId: String
+    val groupId: String,
+    val visibility: Boolean = true,
+    val important: Boolean = false
 )

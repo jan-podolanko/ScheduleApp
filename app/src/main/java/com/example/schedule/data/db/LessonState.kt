@@ -1,8 +1,11 @@
 package com.example.schedule.data.db
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import com.example.schedule.data.db.entities.Lesson
-
+import java.time.LocalDate
+@RequiresApi(Build.VERSION_CODES.O)
 data class LessonState(
     val lessons: List<Lesson> = emptyList(),
     val lesson: Lesson = Lesson(
@@ -12,7 +15,7 @@ data class LessonState(
         endTime = "end time",
         type = "type",
         place = "place",
-        date = "date",
+        date = LocalDate.now(),
         day = "day",
         group = "group",
         groupId = "groupId"

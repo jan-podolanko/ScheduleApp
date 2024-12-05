@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,7 +21,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.schedule.R
 import com.example.schedule.api.repository.ScheduleRepository
 import com.example.schedule.data.db.LessonEvent
 import com.example.schedule.ui.components.GenericGroupItem
@@ -38,7 +41,7 @@ fun GroupScreen(
 
     val groupsUiState = viewModel.groupsUiState
 
-    var groupsFiltered by remember {
+    val groupsFiltered by remember {
         mutableStateOf(groupsUiState?.groups)
     }
     Column {
@@ -57,12 +60,12 @@ fun GroupScreen(
                 trailingIcon = {
                     Icon(
                         Icons.Outlined.Search,
-                        "Szukaj"
+                        stringResource(R.string.group_screen_search_icon)
                     )
                 },
                 placeholder = {
                     Text(
-                        text = "Wyszukaj grupę",
+                        text = stringResource(R.string.group_screen_search_placeholder),
                         modifier = Modifier.padding(0.dp)
                     )
                 }

@@ -3,11 +3,9 @@ package com.example.schedule.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.schedule.api.repository.ScheduleRepository
-import com.example.schedule.viewmodels.state.LessonState
 import com.example.schedule.data.db.SortType
-import com.example.schedule.data.db.entities.Lesson
-import com.example.schedule.viewmodels.events.FavoritesEvent
 import com.example.schedule.viewmodels.events.ScheduleEvent
+import com.example.schedule.viewmodels.state.LessonState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow

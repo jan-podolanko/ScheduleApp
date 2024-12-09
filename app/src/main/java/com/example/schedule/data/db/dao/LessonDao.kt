@@ -3,13 +3,11 @@ package com.example.schedule.data.db.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Upsert
 import com.example.schedule.data.db.entities.Group
 import com.example.schedule.data.db.entities.Lesson
-import com.example.schedule.data.dto.ScheduleDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao

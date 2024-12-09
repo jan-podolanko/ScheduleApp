@@ -8,12 +8,13 @@ plugins {
 
 android {
     namespace = "com.example.schedule"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.schedule"
         minSdk = 26
-        targetSdk = 34
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -104,12 +105,10 @@ dependencies {
     kapt("com.tickaroo.tikxml:processor:0.8.13")
 
     // Room components
-    val roomVersion = "2.6.1"
-
     implementation(libs.androidx.room.runtime)
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation (libs.androidx.room.ktx)
-    kapt ("androidx.room:room-compiler:$roomVersion")
+    kapt (libs.androidx.room.compiler)
     androidTestImplementation(libs.androidx.room.testing)
 
     // Appcompat
@@ -124,10 +123,10 @@ dependencies {
     implementation(libs.androidx.fragment.compose)
 
     // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-android-compiler:2.49")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.androidx.hilt.compiler)
 
 }

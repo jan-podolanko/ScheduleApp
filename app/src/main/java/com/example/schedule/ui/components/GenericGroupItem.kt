@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.example.schedule.R
 import com.example.schedule.data.dto.GroupDto
 import com.example.schedule.ui.theme.Typography
-import com.example.schedule.viewmodels.GroupsViewModel
 import com.example.schedule.viewmodels.events.GroupEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

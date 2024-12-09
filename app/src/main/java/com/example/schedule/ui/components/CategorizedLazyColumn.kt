@@ -8,8 +8,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import com.example.schedule.data.db.entities.Lesson
-import com.example.schedule.viewmodels.LessonDbViewModel
 import com.example.schedule.ui.views.Category
 import com.example.schedule.viewmodels.events.ScheduleEvent
 import java.time.LocalDate

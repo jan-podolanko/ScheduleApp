@@ -1,11 +1,8 @@
-package com.example.schedule.data.db
+package com.example.schedule.viewmodels.state
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.room.ColumnInfo
+import com.example.schedule.data.db.SortType
 import com.example.schedule.data.db.entities.Lesson
 import java.time.LocalDate
-@RequiresApi(Build.VERSION_CODES.O)
 data class LessonState(
     val lessons: List<Lesson> = emptyList(),
     val lesson: Lesson = Lesson(

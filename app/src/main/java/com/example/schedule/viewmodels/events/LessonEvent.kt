@@ -1,5 +1,6 @@
-package com.example.schedule.data.db
+package com.example.schedule.viewmodels.events
 
+import com.example.schedule.data.db.SortType
 import com.example.schedule.data.db.entities.Lesson
 
 sealed interface LessonEvent {

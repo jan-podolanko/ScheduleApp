@@ -1,4 +1,4 @@
-package com.example.schedule.data.db
+package com.example.schedule.viewmodels.events
 
 import com.example.schedule.data.db.entities.Group
 import com.example.schedule.data.db.entities.Lesson

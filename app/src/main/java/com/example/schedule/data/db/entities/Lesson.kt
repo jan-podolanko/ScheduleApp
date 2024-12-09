@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.time.LocalDate
-import java.util.Date
 
 @Entity(
     tableName = "lesson_table",
@@ -15,7 +15,8 @@ import java.util.Date
         parentColumns = ["id"],
         childColumns = ["groupId"],
         onDelete = CASCADE
-    )]
+    )],
+    indices = [Index("groupId")]
 )
 data class Lesson(
     @PrimaryKey(autoGenerate = true)

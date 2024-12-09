@@ -11,11 +11,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.example.schedule.data.db.FavoritesState
+import com.example.schedule.viewmodels.state.FavoritesState
 import com.example.schedule.ui.navigation.Favorites
 import com.example.schedule.ui.navigation.Groups
 import com.example.schedule.ui.navigation.ScheduleDestination
-import com.example.schedule.ui.viewmodels.GroupsViewModel
+import com.example.schedule.viewmodels.GroupsViewModel
+import com.example.schedule.viewmodels.events.GroupEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +28,8 @@ fun TopAppBar(
     currentScreen: ScheduleDestination,
     groupsViewModel: GroupsViewModel,
     navController: NavController,
-    favoritesState: FavoritesState
+    favoritesState: FavoritesState,
+    onGroupEvent: (GroupEvent) -> Unit
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -72,7 +74,7 @@ fun TopAppBar(
             } else if (currentScreen == Groups && groupsViewModel.currentGroup != null) {
                 IconButton(onClick = {
                     CoroutineScope(Dispatchers.IO).launch {
-                        groupsViewModel.addGroup(groupsViewModel.currentGroup!!.scheduleId)
+                        onGroupEvent(GroupEvent.AddGroup(groupsViewModel.currentGroup!!.scheduleId))
                     }
                 }) {
                     Icon(

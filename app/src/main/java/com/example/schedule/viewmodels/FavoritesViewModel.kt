@@ -1,10 +1,10 @@
-package com.example.schedule.ui.viewmodels
+package com.example.schedule.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.schedule.api.repository.ScheduleRepository
-import com.example.schedule.data.db.FavoritesEvent
-import com.example.schedule.data.db.FavoritesState
+import com.example.schedule.viewmodels.events.FavoritesEvent
+import com.example.schedule.viewmodels.state.FavoritesState
 import com.example.schedule.data.dto.ScheduleDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

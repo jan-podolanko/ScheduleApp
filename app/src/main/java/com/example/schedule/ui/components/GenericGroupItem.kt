@@ -19,7 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.example.schedule.R
 import com.example.schedule.data.dto.GroupDto
 import com.example.schedule.ui.theme.Typography
-import com.example.schedule.ui.viewmodels.GroupsViewModel
+import com.example.schedule.viewmodels.GroupsViewModel
+import com.example.schedule.viewmodels.events.GroupEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,9 +28,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun GenericGroupItem(
     schedule: GroupDto,
-    viewModel: GroupsViewModel,
+    onEvent: (GroupEvent) -> Unit
 ) {
-    Column(modifier = Modifier.clickable { viewModel.getGroup(schedule.id) }) {
+    Column(modifier = Modifier.clickable { onEvent(GroupEvent.GetGroup(schedule.id)) }) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(text = schedule.name,
                 style = Typography.titleMedium,
@@ -39,7 +40,7 @@ fun GenericGroupItem(
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = {
                 CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.addGroup(schedule.id)
+                    onEvent(GroupEvent.AddGroup(schedule.id))
                 }
             }) {
                 Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_star_outline_24), contentDescription = "Favorite")

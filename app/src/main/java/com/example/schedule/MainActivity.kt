@@ -9,9 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.schedule.ui.theme.ScheduleTheme
-import com.example.schedule.ui.viewmodels.FavoritesViewModel
-import com.example.schedule.ui.viewmodels.GroupsViewModel
-import com.example.schedule.ui.viewmodels.LessonDbViewModel
+import com.example.schedule.viewmodels.FavoritesViewModel
+import com.example.schedule.viewmodels.GroupsViewModel
+import com.example.schedule.viewmodels.LessonDbViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

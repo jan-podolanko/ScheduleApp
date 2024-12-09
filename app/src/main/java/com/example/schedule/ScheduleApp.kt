@@ -29,16 +29,16 @@ import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.schedule.data.db.FavoritesEvent
-import com.example.schedule.data.db.FavoritesState
+import com.example.schedule.viewmodels.events.FavoritesEvent
+import com.example.schedule.viewmodels.state.FavoritesState
 import com.example.schedule.ui.components.TopAppBar
 import com.example.schedule.ui.navigation.BottomNavigationItem
 import com.example.schedule.ui.navigation.Favorites
 import com.example.schedule.ui.navigation.Groups
 import com.example.schedule.ui.navigation.Schedule
 import com.example.schedule.ui.navigation.ScheduleDestination
-import com.example.schedule.ui.viewmodels.GroupsViewModel
-import com.example.schedule.ui.viewmodels.LessonDbViewModel
+import com.example.schedule.viewmodels.GroupsViewModel
+import com.example.schedule.viewmodels.LessonDbViewModel
 import com.example.schedule.ui.views.FavoritesScreen
 import com.example.schedule.ui.views.GroupScreen
 import com.example.schedule.ui.views.ScheduleScreen
@@ -95,7 +95,8 @@ fun ScheduleApp(
                     currentScreen = currentScreen,
                     groupsViewModel = groupsViewModel,
                     navController = navController,
-                    favoritesState = favoritesState
+                    favoritesState = favoritesState,
+                    onGroupEvent = groupsViewModel::onGroupEvent
                 )
             },
             bottomBar = {

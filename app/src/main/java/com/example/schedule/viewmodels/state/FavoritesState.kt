@@ -1,7 +1,6 @@
-package com.example.schedule.data.db
+package com.example.schedule.viewmodels.state
 
 import com.example.schedule.data.db.entities.Group
-import com.example.schedule.data.db.entities.Lesson
 import com.example.schedule.data.dto.ScheduleDto
 
 data class FavoritesState(

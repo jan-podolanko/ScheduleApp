@@ -1,6 +1,5 @@
 package com.example.schedule.data.dto
 
-import com.example.schedule.data.db.entities.Lesson
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
 

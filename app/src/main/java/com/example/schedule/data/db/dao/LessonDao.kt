@@ -29,6 +29,9 @@ interface LessonDao {
     @Insert
     suspend fun insertGroup(group: List<Lesson>)
 
+    @Query("UPDATE lesson_table SET visibility=CASE WHEN :visibility=0 THEN 1 WHEN :visibility=1 THEN 0 END WHERE subject=:subject AND type=:type AND groupId=:groupId")
+    suspend fun changeLessonVisibility(visibility: Boolean, subject: String, type: String, groupId: String)
+
     @Delete
     suspend fun deleteLesson(lesson: Lesson)
 

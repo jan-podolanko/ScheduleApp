@@ -1,10 +1,5 @@
 package com.example.schedule.ui.navigation
 
-import androidx.compose.runtime.Composable
-import com.example.schedule.ui.views.FavoritesScreen
-import com.example.schedule.ui.views.GroupScreen
-import com.example.schedule.ui.views.ScheduleScreen
-
 interface ScheduleDestination {
     val name: String
     val route: String

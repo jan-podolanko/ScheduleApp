@@ -56,6 +56,15 @@ class ScheduleRepositoryImpl(
         return database.lessonDao.insertGroup(group)
     }
 
+    override suspend fun changeLessonVisibility(
+        visibility: Boolean,
+        subject: String,
+        type: String,
+        groupId: String
+    ) {
+        return database.lessonDao.changeLessonVisibility(visibility,subject,type,groupId)
+    }
+
     override fun getFavorites(): Flow<List<Group>> {
         return database.lessonDao.getFavorites()
     }

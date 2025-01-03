@@ -4,6 +4,17 @@
     <string name="schedule_tab">Plan</string>
     <string name="favorites_tab">Ulubione</string>
     <string name="groups_tab">Grupy</string>
+    <!--Group Screen-->
     <string name="group_screen_search_icon">Szukaj</string>
     <string name="group_screen_search_placeholder">Wyszukaj grupę</string>
+    <!--Top App Bar-->
+    <string name="app_bar_add_group_button">Dodaj zajęcia</string>
+    <string name="app_bar_settings_button">Ustawienia</string>
+    <string name="app_bar_back_button">Cofnij</string>
+    <!--Navigation-->
+    <string name="nav_groups">Grupy</string>
+    <string name="nav_favorites">Ulubione</string>
+    <string name="nav_schedule">Plan Zajęć</string>
+
+
 </resources>

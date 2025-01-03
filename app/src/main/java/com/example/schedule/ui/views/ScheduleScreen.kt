@@ -15,11 +15,6 @@ import java.time.LocalDate
 
 @Composable
 fun ScheduleScreen(lessonViewModel: LessonDbViewModel) {
-    var currentLesson by remember {
-        mutableStateOf<Int?>(null)
-    }
-    val lazyColumnState = rememberLazyListState()
-
     Column {
         val lessonsList = lessonViewModel.state.collectAsState().value.lessons
             .filter { it.visibility }

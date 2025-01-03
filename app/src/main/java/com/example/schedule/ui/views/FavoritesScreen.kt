@@ -22,7 +22,8 @@ fun FavoritesScreen(
                 items(state.favorites){ group ->
                     GroupItem(
                         group = group,
-                        onEvent = onEvent)
+                        onEvent = onEvent
+                    )
                 }
             }
         }

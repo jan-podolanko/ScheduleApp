@@ -26,7 +26,6 @@ class FavoritesViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(FavoritesState())
 
-
     val state = combine(_state, _favorites, _currentGroup) { state, favorites, currentGroup ->
         state.copy(
             favorites = favorites,

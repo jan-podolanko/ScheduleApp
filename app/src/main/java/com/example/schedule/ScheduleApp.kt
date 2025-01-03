@@ -29,6 +29,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.schedule.ui.components.NavBar
 import com.example.schedule.viewmodels.events.FavoritesEvent
 import com.example.schedule.viewmodels.state.FavoritesState
 import com.example.schedule.ui.components.TopAppBar
@@ -42,47 +43,18 @@ import com.example.schedule.viewmodels.LessonDbViewModel
 import com.example.schedule.ui.views.FavoritesScreen
 import com.example.schedule.ui.views.GroupScreen
 import com.example.schedule.ui.views.ScheduleScreen
+import com.example.schedule.viewmodels.NavBarViewModel
 
 @Composable
 fun ScheduleApp(
     lessonViewModel: LessonDbViewModel,
     groupsViewModel: GroupsViewModel,
     favoritesState: FavoritesState,
-    onFavEvent: (FavoritesEvent) -> Unit
+    onFavEvent: (FavoritesEvent) -> Unit,
+    navBarViewModel: NavBarViewModel
 ) {
-    var currentScreen: ScheduleDestination by remember {
-        mutableStateOf(Schedule)
-    }
-    var currentScreenName by remember {
-        mutableStateOf(currentScreen.name)
-    }
     val navController = rememberNavController()
-    var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(0)
-    }
-    val items = listOf(
-        BottomNavigationItem(
-            title = stringResource(R.string.schedule_tab),
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-            route = Schedule.route,
-            destination = Schedule
-        ),
-        BottomNavigationItem(
-            title = stringResource(R.string.favorites_tab),
-            selectedIcon = Icons.Filled.Star,
-            unselectedIcon = ImageVector.vectorResource(id = R.drawable.baseline_star_outline_24),
-            route = Favorites.route,
-            destination = Favorites
-        ),
-        BottomNavigationItem(
-            title = stringResource(R.string.groups_tab),
-            selectedIcon = Icons.AutoMirrored.Filled.List,
-            unselectedIcon = Icons.AutoMirrored.Outlined.List,
-            route = Groups.route,
-            destination = Groups
-        )
-    )
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -91,8 +63,7 @@ fun ScheduleApp(
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-                    currentScreenName = currentScreenName,
-                    currentScreen = currentScreen,
+                    navBarViewModel = navBarViewModel,
                     groupsViewModel = groupsViewModel,
                     navController = navController,
                     favoritesState = favoritesState,
@@ -100,30 +71,10 @@ fun ScheduleApp(
                 )
             },
             bottomBar = {
-                NavigationBar {
-                    items.forEachIndexed { index, item ->
-                        NavigationBarItem(
-                            selected = selectedItemIndex == index,
-                            onClick = {
-                                selectedItemIndex = index
-                                navController.navigate(item.destination.route)
-                                currentScreen = item.destination
-                                currentScreenName = currentScreen.name
-                            },
-                            icon = {
-                                Icon(
-                                    imageVector = if (index == selectedItemIndex) {
-                                        item.selectedIcon
-                                    } else item.unselectedIcon,
-                                    contentDescription = item.title
-                                )
-                            },
-                            label = {
-                                Text(text = item.title)
-                            }
-                        )
-                    }
-                }
+                NavBar(
+                    navController = navController,
+                    navBarViewModel = navBarViewModel
+                )
             }
         ) { innerPadding ->
             NavHost(
@@ -140,7 +91,8 @@ fun ScheduleApp(
                 composable(route = Favorites.route) {
                     FavoritesScreen(
                         state = favoritesState,
-                        onEvent = onFavEvent)
+                        onEvent = onFavEvent
+                    )
                 }
             }
         }

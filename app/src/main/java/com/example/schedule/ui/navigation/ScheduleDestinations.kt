@@ -17,7 +17,3 @@ object Schedule: ScheduleDestination {
     override val name = "Plan Zajęć"
     override val route = "schedule"
 }
-object Settings: ScheduleDestination {
-    override val name = "Ustawienia"
-    override val route = "settings"
-}

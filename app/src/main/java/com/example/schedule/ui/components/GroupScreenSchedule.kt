@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.example.schedule.data.dto.LessonDto
 import com.example.schedule.data.dto.ScheduleDto
@@ -15,7 +14,7 @@ import java.time.LocalDate
 
 @Composable
 fun GroupScreenSchedule(schedule: ScheduleDto){
-    Column() {
+    Column {
         if (schedule.classes != null) {
             val lessonsList = schedule.classes.sortedBy { it.startTime }
                 .groupBy {

@@ -14,8 +14,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.schedule.R
 import com.example.schedule.viewmodels.events.FavoritesEvent
 import com.example.schedule.data.db.entities.Group
 import com.example.schedule.ui.theme.Typography
@@ -34,7 +36,7 @@ fun GroupItem(
                     .padding(15.dp))
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { onEvent(FavoritesEvent.DeleteGroup(group)) }) {
-                Icon(imageVector = Icons.Filled.Delete, contentDescription = "Usuń grupę")
+                Icon(imageVector = Icons.Filled.Delete, contentDescription = stringResource(R.string.group_screen_delete_button))
             }
         }
         HorizontalDivider()

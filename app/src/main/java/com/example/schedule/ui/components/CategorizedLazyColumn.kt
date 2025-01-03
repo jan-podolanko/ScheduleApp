@@ -39,12 +39,6 @@ fun CategorizedLazyColumn(
                     place = lesson.place,
                     modifier = scheduleItemModifier
                         .clickable {
-//                            lessonViewModel.changeLessonVisibility(
-//                                visibility = lesson.visibility,
-//                                subject = lesson.subject,
-//                                type = lesson.type,
-//                                groupId = lesson.groupId
-//                            )
                             onEvent(ScheduleEvent.ChangeVisibility(
                                 visibility = lesson.visibility,
                                 subject = lesson.subject,

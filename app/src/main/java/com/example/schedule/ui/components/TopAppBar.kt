@@ -1,5 +1,6 @@
 package com.example.schedule.ui.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -12,17 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.schedule.R
-import com.example.schedule.viewmodels.state.FavoritesState
-import com.example.schedule.ui.navigation.Favorites
-import com.example.schedule.ui.navigation.Groups
-import com.example.schedule.ui.navigation.ScheduleDestination
 import com.example.schedule.viewmodels.GroupsViewModel
-import com.example.schedule.viewmodels.NavBarViewModel
 import com.example.schedule.viewmodels.events.GroupEvent
+import com.example.schedule.viewmodels.state.FavoritesState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,15 +27,14 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
-    navBarViewModel: NavBarViewModel,
     groupsViewModel: GroupsViewModel,
     navController: NavController,
     favoritesState: FavoritesState,
-    onGroupEvent: (GroupEvent) -> Unit
+    onGroupEvent: (GroupEvent) -> Unit,
+    navBackStackEntry: NavBackStackEntry?
 ) {
     CenterAlignedTopAppBar(
         title = {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
             Text(text = when(navBackStackEntry?.destination?.route){
                 "schedule" -> stringResource(R.string.nav_schedule)
                 "favorites" -> stringResource(R.string.nav_favorites)
@@ -51,21 +47,21 @@ fun TopAppBar(
         navigationIcon = {
             //seems somewhat broken
             IconButton(onClick = {
-//                if (navBarViewModel.currentScreen == Groups) {
-//                    if (groupsViewModel.currentGroup != null) {
-//                        groupsViewModel.currentGroup = null
-//                    } else {
-//                        navController.popBackStack()
-//                    }
-//                } else if (navBarViewModel.currentScreen == Favorites) {
-//                    if (favoritesState.currentSchedule != null) {
-//                        favoritesState.currentSchedule = null
-//                    } else {
-//                        navController.popBackStack()
-//                    }
-//                } else {
-//                    navController.popBackStack()
-//                }
+                if (navBackStackEntry?.destination?.route == "groups") {
+                    if (groupsViewModel.currentGroup != null) {
+                        groupsViewModel.currentGroup = null
+                    } else {
+                        navController.popBackStack()
+                    }
+                } else if (navBackStackEntry?.destination?.route == "favorites") {
+                    if (favoritesState.currentSchedule != null) {
+                        favoritesState.currentSchedule = null
+                    } else {
+                        navController.popBackStack()
+                    }
+                } else {
+                    navController.popBackStack()
+                }
 
             }) {
                 Icon(
@@ -75,7 +71,7 @@ fun TopAppBar(
             }
         },
         actions = {
-            if (navBarViewModel.currentScreen == Favorites) {
+            if (navBackStackEntry?.destination?.route == "favorites") {
                 IconButton(onClick = {
                     /*navController.navigate(Test.route)*/
                 }) {
@@ -84,7 +80,7 @@ fun TopAppBar(
                         contentDescription = stringResource(R.string.app_bar_settings_button)
                     )
                 }
-            } else if (navBarViewModel.currentScreen == Groups && groupsViewModel.currentGroup != null) {
+            } else if (navBackStackEntry?.destination?.route == "groups" && groupsViewModel.currentGroup != null) {
                 IconButton(onClick = {
                     CoroutineScope(Dispatchers.IO).launch {
                         onGroupEvent(GroupEvent.AddGroup(groupsViewModel.currentGroup!!.scheduleId))
@@ -101,3 +97,4 @@ fun TopAppBar(
         }
     )
 }
+

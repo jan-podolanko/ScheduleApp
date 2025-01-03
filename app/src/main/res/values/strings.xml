@@ -7,6 +7,7 @@
     <!--Group Screen-->
     <string name="group_screen_search_icon">Szukaj</string>
     <string name="group_screen_search_placeholder">Wyszukaj grupę</string>
+    <string name="group_screen_delete_button">Usuń grupę</string>
     <!--Top App Bar-->
     <string name="app_bar_add_group_button">Dodaj zajęcia</string>
     <string name="app_bar_settings_button">Ustawienia</string>

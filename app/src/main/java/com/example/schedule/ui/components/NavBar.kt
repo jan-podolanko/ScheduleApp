@@ -13,12 +13,10 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -28,13 +26,12 @@ import com.example.schedule.ui.navigation.BottomNavigationItem
 import com.example.schedule.ui.navigation.Favorites
 import com.example.schedule.ui.navigation.Groups
 import com.example.schedule.ui.navigation.Schedule
-import com.example.schedule.viewmodels.NavBarViewModel
 
 @SuppressLint("RestrictedApi")
 @Composable
 fun NavBar(
     navController: NavController,
-    navBarViewModel: NavBarViewModel
+    navBackStackEntry: NavBackStackEntry?
 ) {
     val items = listOf(
         BottomNavigationItem(
@@ -60,7 +57,6 @@ fun NavBar(
         )
     )
     NavigationBar {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
         items.forEach { item ->
             NavigationBarItem(
@@ -78,8 +74,6 @@ fun NavBar(
                         launchSingleTop = true
                         restoreState = true
                     }
-                    navBarViewModel.currentScreen = item.destination
-
                 },
                 icon = {
                     Icon(

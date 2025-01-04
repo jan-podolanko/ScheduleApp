@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Schedule App</string>
+    <string name="schedule_tab">Schedule</string>
+    <string name="favorites_tab">Favorites</string>
+    <string name="groups_tab">Groups</string>
+    <string name="group_screen_search_icon">Search</string>
+    <string name="group_screen_search_placeholder">Find a group</string>
+    <string name="group_screen_delete_button">Delete group</string>
+    <string name="app_bar_add_group_button">Add group</string>
+    <string name="app_bar_settings_button">Settings</string>
+    <string name="app_bar_back_button">Back</string>
+    <string name="nav_groups">Groups</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_schedule">Your Schedule</string>
+</resources>

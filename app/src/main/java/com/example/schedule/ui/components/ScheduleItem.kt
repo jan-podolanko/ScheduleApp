@@ -14,7 +14,7 @@ import com.example.schedule.ui.theme.Typography
 @Composable
 fun ScheduleItem(
     subject: String,
-    teacher: String,
+    teachers: List<String>?,
     startTime: String,
     endTime: String,
     type: String,
@@ -27,7 +27,7 @@ fun ScheduleItem(
     ) {
         Text(text = subject, style = Typography.titleSmall)
         Text(text = "$startTime-$endTime", style = Typography.bodySmall)
-        Text(text = teacher, style = Typography.bodySmall, fontWeight = FontWeight.SemiBold)
+        Text(text = teachers!!.joinToString(", "), style = Typography.bodySmall, fontWeight = FontWeight.SemiBold)
         Text(text = type, style = Typography.bodySmall)
         Text(text = place, style = Typography.bodySmall, modifier=Modifier.padding(0.dp, 0.dp, 0.dp, 5.dp))
     }

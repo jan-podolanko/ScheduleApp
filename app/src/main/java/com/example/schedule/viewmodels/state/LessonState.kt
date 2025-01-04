@@ -7,7 +7,7 @@ data class LessonState(
     val lessons: List<Lesson> = emptyList(),
     val lesson: Lesson = Lesson(
         subject = "subject",
-        teacher = "teacher",
+        teachers = listOf("teacher"),
         startTime = "start time",
         endTime = "end time",
         type = "type",

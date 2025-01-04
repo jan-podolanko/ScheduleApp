@@ -13,4 +13,14 @@ class Converters {
     fun fromLocalDateToString(date: LocalDate): String {
         return date.toString()
     }
+
+    @TypeConverter
+    fun fromStringToList(string: String): List<String> {
+        return string.split(",")
+    }
+
+    @TypeConverter
+    fun fromListToString(list: List<String>): String {
+        return list.joinToString(",")
+    }
 }

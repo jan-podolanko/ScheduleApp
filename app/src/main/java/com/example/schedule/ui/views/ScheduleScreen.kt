@@ -1,13 +1,8 @@
 package com.example.schedule.ui.views
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import com.example.schedule.data.db.entities.Lesson
 import com.example.schedule.ui.components.CategorizedLazyColumn
 import com.example.schedule.viewmodels.LessonDbViewModel

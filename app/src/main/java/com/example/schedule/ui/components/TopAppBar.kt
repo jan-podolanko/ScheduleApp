@@ -1,6 +1,5 @@
 package com.example.schedule.ui.components
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -11,11 +10,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.schedule.R
 import com.example.schedule.viewmodels.GroupsViewModel
 import com.example.schedule.viewmodels.events.GroupEvent
@@ -91,8 +88,6 @@ fun TopAppBar(
                         contentDescription = stringResource(R.string.app_bar_add_group_button)
                     )
                 }
-            } else {
-                null
             }
         }
     )

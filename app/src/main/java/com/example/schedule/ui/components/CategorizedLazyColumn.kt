@@ -32,7 +32,7 @@ fun CategorizedLazyColumn(
             items(category.items) { lesson ->
                 ScheduleItem(
                     subject = lesson.subject,
-                    teacher = lesson.teacher,
+                    teachers = lesson.teachers,
                     startTime = lesson.startTime,
                     endTime = lesson.endTime,
                     type = lesson.type,

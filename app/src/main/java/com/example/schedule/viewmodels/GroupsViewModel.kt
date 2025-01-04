@@ -83,9 +83,9 @@ class GroupsViewModel @Inject constructor(
                                         type = it.type,
                                         place = it.place,
                                         day = it.day,
-                                        teacher = it.teacher,
+                                        teachers = it.teachers?.map { x -> x.teacher },
                                         groupId = group.scheduleId,
-                                        group = group.scheduleName
+                                        group = group.scheduleName,
                                     )
                                 }
                             )

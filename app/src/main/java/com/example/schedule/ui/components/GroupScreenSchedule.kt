@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.schedule.data.dto.LessonDto
 import com.example.schedule.data.dto.ScheduleDto
+import com.example.schedule.data.dto.TeacherDto
 import java.time.LocalDate
 
 @Composable
@@ -53,9 +54,11 @@ fun CategorizedGroupLazyColumn(
                 )
             }
             items(category.items) { lesson ->
+                val teachers = lesson.teachers?.map { x -> x.teacher }
+
                 ScheduleItem(
                     subject = lesson.subject,
-                    teacher = lesson.teacher,
+                    teachers = teachers,
                     startTime = lesson.startTime,
                     endTime = lesson.endTime,
                     type = lesson.type,

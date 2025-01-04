@@ -23,7 +23,7 @@ data class Lesson(
     val id: Int = 0,
 
     val subject: String,
-    val teacher: String,
+    val teachers: List<String>? = null,
     @ColumnInfo(name = "start_time")
     val startTime: String,
     @ColumnInfo(name = "end_time")
@@ -34,6 +34,7 @@ data class Lesson(
     val day: String,
     val group: String,
     val groupId: String,
+    val comments: String? = null,
     val visibility: Boolean = true,
     val important: Boolean = false
 )

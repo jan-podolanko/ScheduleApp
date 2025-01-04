@@ -1,5 +1,6 @@
 package com.example.schedule.data.dto
 
+import com.tickaroo.tikxml.annotation.Element
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
 
@@ -9,8 +10,8 @@ data class LessonDto(
     @PropertyElement(name = "przedmiot")
     var subject: String,
 
-    @PropertyElement(name = "nauczyciel")
-    var teacher: String,
+    @Element
+    var teachers: List<TeacherDto>? = null,
 
     @PropertyElement(name = "od-godz")
     var startTime: String,
@@ -31,5 +32,5 @@ data class LessonDto(
     var day: String,
 
     @PropertyElement(name = "uwagi")
-    var comments: String?
+    var comments: String? = null
 )

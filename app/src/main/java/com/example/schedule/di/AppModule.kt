@@ -6,7 +6,6 @@ import com.example.schedule.api.ScheduleApi
 import com.example.schedule.api.repository.ScheduleRepository
 import com.example.schedule.api.repository.ScheduleRepositoryImpl
 import com.example.schedule.data.db.LessonDatabase
-import com.example.schedule.data.db.dao.LessonDao
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import dagger.Module

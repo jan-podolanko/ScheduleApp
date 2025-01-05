@@ -16,10 +16,6 @@ class ScheduleRepositoryImpl(
     private val database: LessonDatabase
 ): ScheduleRepository {
 
-    override suspend fun testGetSchedule(): ScheduleDto {
-        return api.testGetSchedule()
-    }
-
     override suspend fun getGroups(): GroupsDto {
         return api.getGroups()
     }
@@ -28,8 +24,20 @@ class ScheduleRepositoryImpl(
         return api.getTeachers()
     }
 
-    override suspend fun getSchedule(id: String): ScheduleDto {
-        return api.getSchedule(id)
+    override suspend fun getClassrooms(): GroupsDto {
+        return api.getClassrooms()
+    }
+
+    override suspend fun getGroupSchedule(id: String): ScheduleDto {
+        return api.getGroupSchedule(id)
+    }
+
+    override suspend fun getTeacherSchedule(id: String): ScheduleDto {
+        return api.getTeacherSchedule(id)
+    }
+
+    override suspend fun getClassroomSchedule(id: String): ScheduleDto {
+        return api.getClassroomSchedule(id)
     }
 
     override fun getLessonsByDateAsc(): Flow<List<Lesson>> {

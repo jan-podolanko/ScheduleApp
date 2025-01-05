@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.schedule.api.repository.ScheduleRepository
 import com.example.schedule.data.db.entities.Group
 import com.example.schedule.data.db.entities.Lesson
+import com.example.schedule.data.dto.GroupDto
 import com.example.schedule.data.dto.GroupsDto
 import com.example.schedule.data.dto.ScheduleDto
 import com.example.schedule.viewmodels.events.GroupEvent
@@ -25,7 +26,7 @@ class GroupsViewModel @Inject constructor(
 ): ViewModel() {
 
     // initial ui state
-    var groupsUiState: GroupsDto? by mutableStateOf(null)
+    var groupsUiState: List<GroupDto>? by mutableStateOf(null)
         private set
 
     private val _groups = MutableStateFlow(GroupsDto())
@@ -34,20 +35,20 @@ class GroupsViewModel @Inject constructor(
     var currentGroup: ScheduleDto? by mutableStateOf(null)
 
     init {
-        getGroups()
+        getAllSchedules()
     }
 
-    private fun getGroups(){
-        viewModelScope.launch {
-            try {
-                val listResult = repository.getGroups()
-                groupsUiState = listResult
-                _groups.value = listResult
-            } catch (e: IOException){
-                Log.d("ERR", e.toString())
-            }
-        }
-    }
+//    private fun getGroups(){
+//        viewModelScope.launch {
+//            try {
+//                val listResult = repository.getGroups()
+//                groupsUiState = listResult
+//                _groups.value = listResult
+//            } catch (e: IOException){
+//                Log.d("ERR", e.toString())
+//            }
+//        }
+//    }
 //    fun getTeachers(){
 //        viewModelScope.launch {
 //            try {
@@ -60,17 +61,38 @@ class GroupsViewModel @Inject constructor(
 //        }
 //    }
 
+    private fun getAllSchedules(){
+        viewModelScope.launch {
+            try {
+                val groupSchedules = repository.getGroups().groups
+                val teacherSchedules = repository.getTeachers().groups
+                val classroomSchedules = repository.getClassrooms().groups
+                val allGroups: List<GroupDto>? = groupSchedules?.plus(teacherSchedules as List<GroupDto>)?.plus(classroomSchedules as List<GroupDto>)
+                groupsUiState = allGroups
+            } catch (e: IOException){
+                Log.d("ERR", e.toString())
+            }
+        }
+    }
+
     fun onGroupEvent(event: GroupEvent){
         when(event){
             is GroupEvent.AddGroup -> {
                 viewModelScope.launch{
                     try {
-                        val group = repository.getSchedule(event.id)
+                        val group: ScheduleDto = when(event.type){
+                            "G" -> repository.getGroupSchedule(event.id)
+                            "N" -> repository.getTeacherSchedule(event.id)
+                            "S" -> repository.getClassroomSchedule(event.id)
+                            else -> throw IllegalStateException("Invalid schedule type")
+                        }
+
                         if (group.classes != null) {
                             repository.insertFavorite(
                                 Group(
                                     id = group.scheduleId,
-                                    name = group.scheduleName
+                                    name = group.scheduleName,
+                                    type = group.type
                                 )
                             )
                             repository.insertGroup(
@@ -83,7 +105,11 @@ class GroupsViewModel @Inject constructor(
                                         type = it.type,
                                         place = it.place,
                                         day = it.day,
-                                        teachers = it.teachers?.map { x -> x.teacher },
+                                        teachers = if(group.type == "N"){
+                                            listOf(group.scheduleName)
+                                        } else {
+                                            it.teachers?.map { x -> x.teacher }
+                                               },
                                         groupId = group.scheduleId,
                                         group = group.scheduleName,
                                     )
@@ -98,7 +124,13 @@ class GroupsViewModel @Inject constructor(
             is GroupEvent.GetGroup -> {
                 viewModelScope.launch {
                     try {
-                        val groupResult = repository.getSchedule(event.id)
+                        val groupResult: ScheduleDto = when(event.type){
+                            "G" -> repository.getGroupSchedule(event.id)
+                            "N" -> repository.getTeacherSchedule(event.id)
+                            "S" -> repository.getClassroomSchedule(event.id)
+                            else ->  throw IllegalStateException("Invalid schedule type")
+                        }
+
                         currentGroup = groupResult
                     } catch (e: IOException){
                         Log.d("ERR", e.toString())
@@ -106,29 +138,29 @@ class GroupsViewModel @Inject constructor(
                 }
             }
 
-            GroupEvent.GetTeachers -> {
-                viewModelScope.launch {
-                    try {
-                        val listResult = repository.getTeachers()
-                        groupsUiState = listResult
-                        _groups.value = listResult
-                    } catch (e: IOException) {
-                        Log.d("ERR", e.toString())
-                    }
-                }
-            }
-
-            GroupEvent.GetGroups -> {
-                viewModelScope.launch {
-                    try {
-                        val listResult = repository.getGroups()
-                        groupsUiState = listResult
-                        _groups.value = listResult
-                    } catch (e: IOException){
-                        Log.d("ERR", e.toString())
-                    }
-                }
-            }
+//            GroupEvent.GetTeachers -> {
+//                viewModelScope.launch {
+//                    try {
+//                        val listResult = repository.getTeachers()
+//                        groupsUiState = listResult
+//                        _groups.value = listResult
+//                    } catch (e: IOException) {
+//                        Log.d("ERR", e.toString())
+//                    }
+//                }
+//            }
+//
+//            GroupEvent.GetGroups -> {
+//                viewModelScope.launch {
+//                    try {
+//                        val listResult = repository.getGroups()
+//                        groupsUiState = listResult
+//                        _groups.value = listResult
+//                    } catch (e: IOException){
+//                        Log.d("ERR", e.toString())
+//                    }
+//                }
+//            }
         }
     }
 }

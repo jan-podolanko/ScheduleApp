@@ -8,10 +8,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface ScheduleRepository {
     //functions for fetching from internet
-    suspend fun testGetSchedule(): ScheduleDto
     suspend fun getGroups(): GroupsDto
     suspend fun getTeachers(): GroupsDto
-    suspend fun getSchedule(id: String): ScheduleDto
+    suspend fun getClassrooms(): GroupsDto
+    suspend fun getGroupSchedule(id: String): ScheduleDto
+    suspend fun getTeacherSchedule(id: String): ScheduleDto
+    suspend fun getClassroomSchedule(id: String): ScheduleDto
 
     //db operations
     fun getLessonsByDateAsc(): Flow<List<Lesson>>

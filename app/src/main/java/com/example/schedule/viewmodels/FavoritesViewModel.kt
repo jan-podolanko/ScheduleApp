@@ -42,7 +42,12 @@ class FavoritesViewModel @Inject constructor(
             }
             is FavoritesEvent.SetSchedule -> {
                 viewModelScope.launch {
-                    _currentGroup.value = repository.getSchedule(event.group.id)
+                    when(event.group.type){
+                        "G" -> _currentGroup.value = repository.getGroupSchedule(event.group.id)
+                        "N" -> _currentGroup.value = repository.getTeacherSchedule(event.group.id)
+                        "S" -> _currentGroup.value = repository.getClassroomSchedule(event.group.id)
+                    }
+
                 }
             }
             is FavoritesEvent.GetGroup -> TODO()

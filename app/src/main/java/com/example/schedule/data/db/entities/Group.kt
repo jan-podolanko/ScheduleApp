@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Group(
     @PrimaryKey
     val id: String,
-    val name: String
+    val name: String,
+    val type: String
 )

@@ -7,10 +7,13 @@
     <string name="group_screen_search_icon">Szukaj</string>
     <string name="group_screen_search_placeholder">Wyszukaj grupę</string>
     <string name="group_screen_delete_button">Usuń grupę</string>
+    <string name="filter_chip_s">Sale</string>
     <string name="app_bar_add_group_button">Dodaj zajęcia</string>
     <string name="app_bar_settings_button">Ustawienia</string>
     <string name="app_bar_back_button">Cofnij</string>
     <string name="nav_groups">Grupy</string>
     <string name="nav_favorites">Ulubione</string>
     <string name="nav_schedule">Twój Plan</string>
+    <string name="filter_chip_g">Grupy</string>
+    <string name="filter_chip_n">Nauczyciele</string>
 </resources>

@@ -29,7 +29,7 @@ fun GenericGroupItem(
     schedule: GroupDto,
     onEvent: (GroupEvent) -> Unit
 ) {
-    Column(modifier = Modifier.clickable { onEvent(GroupEvent.GetGroup(schedule.id)) }) {
+    Column(modifier = Modifier.clickable { onEvent(GroupEvent.GetGroup(schedule.id, schedule.type)) }) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(text = schedule.name,
                 style = Typography.titleMedium,
@@ -39,7 +39,7 @@ fun GenericGroupItem(
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = {
                 CoroutineScope(Dispatchers.IO).launch {
-                    onEvent(GroupEvent.AddGroup(schedule.id))
+                    onEvent(GroupEvent.AddGroup(schedule.id, schedule.type))
                 }
             }) {
                 Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_star_outline_24), contentDescription = "Favorite")

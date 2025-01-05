@@ -8,7 +8,7 @@ import com.tickaroo.tikxml.annotation.Xml
 data class LessonDto(
 
     @PropertyElement(name = "przedmiot")
-    var subject: String,
+    var subject: String?,
 
     @Element
     var teachers: List<TeacherDto>? = null,
@@ -23,7 +23,7 @@ data class LessonDto(
     var type: String,
 
     @PropertyElement(name = "sala")
-    var place: String = "Brak podanej sali",
+    var place: String? = "Brak podanej sali",
 
     @PropertyElement(name = "termin")
     var date: String,

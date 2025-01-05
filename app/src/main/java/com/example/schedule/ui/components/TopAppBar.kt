@@ -34,8 +34,16 @@ fun TopAppBar(
         title = {
             Text(text = when(navBackStackEntry?.destination?.route){
                 "schedule" -> stringResource(R.string.nav_schedule)
-                "favorites" -> stringResource(R.string.nav_favorites)
-                "groups" -> stringResource(R.string.nav_groups)
+                "favorites" -> if(favoritesState.currentSchedule != null){
+                    favoritesState.currentSchedule!!.scheduleName
+                }else{
+                    stringResource(R.string.nav_favorites)
+                }
+                "groups" -> if(groupsViewModel.currentGroup != null) {
+                    groupsViewModel.currentGroup!!.scheduleName
+                } else {
+                    stringResource(R.string.nav_groups)
+                }
                 else -> {
                     stringResource(R.string.app_name)
                 }
@@ -80,7 +88,10 @@ fun TopAppBar(
             } else if (navBackStackEntry?.destination?.route == "groups" && groupsViewModel.currentGroup != null) {
                 IconButton(onClick = {
                     CoroutineScope(Dispatchers.IO).launch {
-                        onGroupEvent(GroupEvent.AddGroup(groupsViewModel.currentGroup!!.scheduleId))
+                        onGroupEvent(GroupEvent.AddGroup(
+                            id = groupsViewModel.currentGroup!!.scheduleId,
+                            type = groupsViewModel.currentGroup!!.type
+                        ))
                     }
                 }) {
                     Icon(

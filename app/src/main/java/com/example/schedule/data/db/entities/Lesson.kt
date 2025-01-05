@@ -22,14 +22,14 @@ data class Lesson(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
-    val subject: String,
+    val subject: String?,
     val teachers: List<String>? = null,
     @ColumnInfo(name = "start_time")
     val startTime: String,
     @ColumnInfo(name = "end_time")
     val endTime: String,
     val type: String,
-    val place: String,
+    val place: String?,
     val date: LocalDate,
     val day: String,
     val group: String,

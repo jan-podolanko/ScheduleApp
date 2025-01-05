@@ -8,5 +8,7 @@ data class GroupDto(
     @Attribute(name = "id")
     val id: String,
     @Attribute(name = "nazwa")
-    val name: String
+    val name: String,
+    @Attribute(name = "typ")
+    val type: String
 )

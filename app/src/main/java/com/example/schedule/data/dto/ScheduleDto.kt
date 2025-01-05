@@ -13,6 +13,9 @@ data class ScheduleDto(
     @Attribute(name = "nazwa")
     val scheduleName: String,
 
+    @Attribute(name = "typ")
+    val type: String,
+
     @Element
     val classes: List<LessonDto>? = null,
 )

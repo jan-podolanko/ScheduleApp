@@ -31,7 +31,7 @@ fun CategorizedLazyColumn(
             }
             items(category.items) { lesson ->
                 ScheduleItem(
-                    subject = lesson.subject,
+                    subject = lesson.subject.toString(),
                     teachers = lesson.teachers,
                     startTime = lesson.startTime,
                     endTime = lesson.endTime,
@@ -41,7 +41,7 @@ fun CategorizedLazyColumn(
                         .clickable {
                             onEvent(ScheduleEvent.ChangeVisibility(
                                 visibility = lesson.visibility,
-                                subject = lesson.subject,
+                                subject = lesson.subject.toString(),
                                 type = lesson.type,
                                 groupId = lesson.groupId)
                             )

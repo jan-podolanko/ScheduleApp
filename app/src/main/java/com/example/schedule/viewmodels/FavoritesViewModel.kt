@@ -5,12 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.schedule.api.repository.ScheduleRepository
 import com.example.schedule.viewmodels.events.FavoritesEvent
 import com.example.schedule.viewmodels.state.FavoritesState
-import com.example.schedule.data.dto.ScheduleDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,14 +22,20 @@ class FavoritesViewModel @Inject constructor(
     private val _favorites = repository.getFavorites()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
-    private val _currentGroup: MutableStateFlow<ScheduleDto?> = MutableStateFlow(null)
+    private val _currentGroup: MutableStateFlow<String?> = MutableStateFlow(null)
+    private val _currentGroupName: MutableStateFlow<String?> = MutableStateFlow(null)
+
+    private val _currentSchedule = repository.getLessonsByDateAsc()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     private val _state = MutableStateFlow(FavoritesState())
 
-    val state = combine(_state, _favorites, _currentGroup) { state, favorites, currentGroup ->
+    val state = combine(_state, _favorites, _currentGroup, _currentGroupName, _currentSchedule) { state, favorites, currentGroup, currentGroupName, currentSchedule ->
         state.copy(
             favorites = favorites,
-            currentSchedule = currentGroup
+            currentGroup = currentGroup,
+            currentGroupName = currentGroupName,
+            currentSchedule = currentSchedule
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FavoritesState())
 
@@ -42,15 +48,16 @@ class FavoritesViewModel @Inject constructor(
             }
             is FavoritesEvent.SetSchedule -> {
                 viewModelScope.launch {
-                    when(event.group.type){
-                        "G" -> _currentGroup.value = repository.getGroupSchedule(event.group.id)
-                        "N" -> _currentGroup.value = repository.getTeacherSchedule(event.group.id)
-                        "S" -> _currentGroup.value = repository.getClassroomSchedule(event.group.id)
-                    }
-
+                    _currentGroup.update { event.group.id }
+                    _currentGroupName.update { event.group.name }
                 }
             }
-            is FavoritesEvent.GetGroup -> TODO()
+            is FavoritesEvent.ResetState -> {
+                viewModelScope.launch {
+                    _currentGroup.update { null }
+                    _currentGroupName.update { null }
+                }
+            }
         }
     }
 

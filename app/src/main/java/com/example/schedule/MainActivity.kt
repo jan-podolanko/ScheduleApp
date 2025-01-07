@@ -24,13 +24,11 @@ class MainActivity : ComponentActivity() {
                 val dbViewModel = hiltViewModel<LessonDbViewModel>()
                 val groupsViewModel = hiltViewModel<GroupsViewModel>()
                 val favDbViewModel = hiltViewModel<FavoritesViewModel>()
-                val favoritesState by favDbViewModel.state.collectAsState()
                 Surface {
                     ScheduleApp(
                         lessonViewModel = dbViewModel,
                         groupsViewModel = groupsViewModel,
-                        favoritesState = favoritesState,
-                        onFavEvent = favDbViewModel::onFavEvent,
+                        favoritesViewModel = favDbViewModel,
                     )
                 }
             }

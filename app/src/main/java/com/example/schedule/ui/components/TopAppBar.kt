@@ -15,6 +15,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.example.schedule.R
 import com.example.schedule.viewmodels.GroupsViewModel
+import com.example.schedule.viewmodels.events.FavoritesEvent
 import com.example.schedule.viewmodels.events.GroupEvent
 import com.example.schedule.viewmodels.state.FavoritesState
 import kotlinx.coroutines.CoroutineScope
@@ -28,22 +29,28 @@ fun TopAppBar(
     navController: NavController,
     favoritesState: FavoritesState,
     onGroupEvent: (GroupEvent) -> Unit,
+    onFavEvent: (FavoritesEvent) -> Unit,
     navBackStackEntry: NavBackStackEntry?
 ) {
     CenterAlignedTopAppBar(
         title = {
-            Text(text = when(navBackStackEntry?.destination?.route){
+            Text(text = when(navBackStackEntry?.destination?.route) {
                 "schedule" -> stringResource(R.string.nav_schedule)
-                "favorites" -> if(favoritesState.currentSchedule != null){
-                    favoritesState.currentSchedule!!.scheduleName
-                }else{
-                    stringResource(R.string.nav_favorites)
-                }
-                "groups" -> if(groupsViewModel.currentGroup != null) {
-                    groupsViewModel.currentGroup!!.scheduleName
-                } else {
-                    stringResource(R.string.nav_groups)
-                }
+
+                "favorites" ->
+                    if(favoritesState.currentGroup != null) {
+                        favoritesState.currentGroupName!!
+                    } else {
+                        stringResource(R.string.nav_favorites)
+                    }
+
+                "groups" ->
+                    if(groupsViewModel.currentGroup != null) {
+                        groupsViewModel.currentGroup!!.scheduleName
+                    } else {
+                        stringResource(R.string.nav_groups)
+                    }
+
                 else -> {
                     stringResource(R.string.app_name)
                 }
@@ -59,8 +66,8 @@ fun TopAppBar(
                         navController.popBackStack()
                     }
                 } else if (navBackStackEntry?.destination?.route == "favorites") {
-                    if (favoritesState.currentSchedule != null) {
-                        favoritesState.currentSchedule = null
+                    if (favoritesState.currentGroup != null) {
+                        onFavEvent(FavoritesEvent.ResetState)
                     } else {
                         navController.popBackStack()
                     }

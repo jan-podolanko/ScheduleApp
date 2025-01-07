@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +28,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun GenericGroupItem(
     schedule: GroupDto,
-    onEvent: (GroupEvent) -> Unit
+    onEvent: (GroupEvent) -> Unit,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState
 ) {
     Column(modifier = Modifier.clickable { onEvent(GroupEvent.GetGroup(schedule.id, schedule.type)) }) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -40,6 +43,7 @@ fun GenericGroupItem(
             IconButton(onClick = {
                 CoroutineScope(Dispatchers.IO).launch {
                     onEvent(GroupEvent.AddGroup(schedule.id, schedule.type))
+                    scope.launch{ snackbarHostState.showSnackbar("Dodano ${schedule.name} do ulubionych!") }
                 }
             }) {
                 Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_star_outline_24), contentDescription = "Favorite")

@@ -5,11 +5,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import com.example.schedule.ui.views.Category
 import com.example.schedule.viewmodels.events.ScheduleEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 
@@ -17,7 +20,9 @@ import java.time.LocalDate
 @Composable
 fun CategorizedLazyColumn(
     categories: List<Category>,
-    onEvent: (ScheduleEvent) -> Unit
+    onEvent: (ScheduleEvent) -> Unit,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState
 ){
     LazyColumn {
         categories.forEach { category ->
@@ -45,6 +50,9 @@ fun CategorizedLazyColumn(
                                 type = lesson.type,
                                 groupId = lesson.groupId)
                             )
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Schowano ${lesson.subject}!")
+                            }
                         }
                 )
                 HorizontalDivider()

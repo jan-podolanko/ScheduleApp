@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,12 +22,17 @@ import com.example.schedule.R
 import com.example.schedule.viewmodels.events.FavoritesEvent
 import com.example.schedule.data.db.entities.Group
 import com.example.schedule.ui.theme.Typography
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun GroupItem(
     group: Group,
-    onEvent: (FavoritesEvent) -> Unit
+    onEvent: (FavoritesEvent) -> Unit,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState
 ) {
+
     Column(modifier = Modifier.clickable { onEvent(FavoritesEvent.SetSchedule(group)) }) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(text = group.name,
@@ -35,7 +41,10 @@ fun GroupItem(
                 modifier = Modifier
                     .padding(15.dp))
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { onEvent(FavoritesEvent.DeleteGroup(group)) }) {
+            IconButton(onClick = {
+                onEvent(FavoritesEvent.DeleteGroup(group))
+                scope.launch{ snackbarHostState.showSnackbar("Usunięto ${group.name} z ulubionych!") }
+            }) {
                 Icon(imageVector = Icons.Filled.Delete, contentDescription = stringResource(R.string.group_screen_delete_button))
             }
         }

@@ -1,6 +1,6 @@
 # Schedule App
 
-Unofficial Android schedule app for UEK students and staff made in Kotlin using the Android Studio IDE.
+Unofficial Android schedule app for UEK students and staff made in Kotlin using Android Studio.
 
 ### Functionalities
 - Shows current schedule for any group, teacher or classroom, accessing it from https://planzajec.uek.krakow.pl/ using the Retrofit library

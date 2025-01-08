@@ -1,6 +1,6 @@
 # Schedule App
 
-Android schedule app for the Cracow University of Economics students made in Kotlin using the Android Studio IDE.
+Unofficial Android schedule app for UEK students and staff made in Kotlin using the Android Studio IDE.
 
 ### Functionalities
 - Shows current schedule for any group, teacher or classroom, accessing it from https://planzajec.uek.krakow.pl/ using the Retrofit library
